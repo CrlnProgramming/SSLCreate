@@ -1,0 +1,37 @@
+First step: Create openssl.conf with params (for example): 
+=======================================
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C = US
+ST = State
+L = City
+O = Organization
+OU = Organization Unit
+CN = localhost
+
+[v3_ca]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+IP.1 = 127.0.0.1
+========================
+
+You can valid your file this command:
+openssl x509 -in cert.pem -text -noout / openssl req -text -noout -verify -in req.pem 
+
+Step 2: 
+Verify ur rsa with this commnad: 
+openssl rsa -in key.pem -check
+
+Step 3: 
+Verify ur MD5 this command 
+openssl x509 -noout -modulus -in cert.pem | openssl md5
+openssl rsa -noout -modulus -in key.pem | openssl md5
+
+If is okey that had been done
